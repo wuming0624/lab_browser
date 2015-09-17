@@ -61,8 +61,9 @@ public class BrowserView {
     private Button myBackButton;
     private Button myNextButton;
     private Button myHomeButton;
+    private Button myFavoriteButton;
     // favorites
-    private ComboBox<String> myFavorites;
+    private ComboBox<String> myFavorites = new ComboBox<String>() ;
     // get strings from resource file
     private ResourceBundle myResources;
     // the data
@@ -84,7 +85,7 @@ public class BrowserView {
         enableButtons();
         // create scene to hold UI
         myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
-        //myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
+        myScene.getStylesheets().add(DEFAULT_RESOURCE_PACKAGE + STYLESHEET);
     }
 
     /**
@@ -192,6 +193,8 @@ public class BrowserView {
         myStatus = new Label(BLANK);
         return myStatus;
     }
+    
+    
 
     // make user-entered URL/text field and back/next buttons
     private Node makeNavigationPanel () {
@@ -206,6 +209,8 @@ public class BrowserView {
         });
         result.getChildren().add(myBackButton);
         // new style way to do set up callback (lambdas)
+        myFavoriteButton = makeButton("AddFavoriteCommand", event -> addFavorite());
+        result.getChildren().add(myFavoriteButton);
         myNextButton = makeButton("NextCommand", event -> next());
         result.getChildren().add(myNextButton);
         myHomeButton = makeButton("HomeCommand", event -> home());
@@ -215,6 +220,7 @@ public class BrowserView {
         result.getChildren().add(makeButton("GoCommand", showHandler));
         myURLDisplay = makeInputField(40, showHandler);
         result.getChildren().add(myURLDisplay);
+        result.getChildren().add(myFavorites);
         return result;
     }
 
