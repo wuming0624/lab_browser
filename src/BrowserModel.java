@@ -38,11 +38,12 @@ public class BrowserModel {
      * Returns the first page in next history, null if next history is empty.
      */
     public URL next () {
+    	
         if (hasNext()) {
             myCurrentIndex++;
             return myHistory.get(myCurrentIndex);
         }
-        return null;
+        throw new BrowserException("error with browser exception");
     }
 
     /**
@@ -53,7 +54,7 @@ public class BrowserModel {
             myCurrentIndex--;
             return myHistory.get(myCurrentIndex);
         }
-        return null;
+        throw new BrowserException("error with browser exception");
     }
 
     /**
@@ -119,7 +120,7 @@ public class BrowserModel {
         if (name != null && !name.equals("") && myFavorites.containsKey(name)) {
             return myFavorites.get(name);
         }
-        return null;
+        throw new BrowserException("error with browser exception");
     }
 
     // deal with a potentially incomplete URL
@@ -137,7 +138,7 @@ public class BrowserModel {
                     // e.g., let user leave off initial protocol
                     return new URL(PROTOCOL_PREFIX + possible);
                 } catch (MalformedURLException eee) {
-                    return null;
+                    throw new BrowserException("error with browser exception");
                 }
             }
         }

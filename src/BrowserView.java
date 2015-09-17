@@ -93,11 +93,12 @@ public class BrowserView {
      */
     public void showPage (String url) {
         URL valid = myModel.go(url);
-        if (url != null) {
+        try {
             update(valid);
         }
-        else {
-            showError("Could not load " + url);
+        catch(NullPointerException x) {
+//            showError("Could not load " + url);
+        	showError(String.format(myResources.getString("NullErrorTitle"), url));
         }
     }
 
